@@ -1,0 +1,21 @@
+.body {
+    height: 100%;
+    background-color: #4d5366;
+}
+
+.row-object {
+    padding-top: 10px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+
+    label {
+        color: rgb(235, 232, 232);
+        font-weight: 600;
+        font-size: large;
+        display: flex;
+        justify-content: start;
+    }
+}

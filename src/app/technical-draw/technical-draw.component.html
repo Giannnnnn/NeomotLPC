@@ -1,0 +1,12 @@
+<div class="component-body">
+    <div class="image-body">
+        <span class="poco">{{poco}} mm</span>
+        <span class="percurso">{{percurso}} mm</span>
+        <span class="altura">{{ultimaAltura}} mm</span>
+        <span class="altura-com-maquina" *ngIf="withHouseOfMachines">{{alturaCMaquina}} mm</span>
+        <img class="svg-img" *ngIf="withHouseOfMachines"
+             src="../assets/svg/comcasademaq_medium_size.svg">
+        <img class="svg-img" *ngIf="!withHouseOfMachines"
+             src="../assets/svg/semcasademaq_medium_size.svg">
+    </div>
+</div>

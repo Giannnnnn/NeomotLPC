@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,23 +6,58 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  constructor(private _formBuilder: FormBuilder) {}
+export class AppComponent implements OnInit, OnChanges {
+  constructor(private _formBuilder: FormBuilder) { }
 
-  firstFormGroup: FormGroup = this._formBuilder.group({firstCtrl: ['']});
-  secondFormGroup: FormGroup = this._formBuilder.group({secondCtrl: ['']});
-  thirdFormGroup: FormGroup = this._formBuilder.group({thirdCtrl: ['']});
-  
   title = 'NeomotLPC';
   gola: string = '';
-  aberturaPorta: string = '';
+  profundidadePoco: number = 0;
+  numeroDePavimentos: number = 0;
+  parede: string = '';
   qdComando: string = '';
-  medida: string = '';
+  ligacaoQuadro: string = '';
   casaDeMaquina: string = '';
 
   golas: string[] = ['Alvenaria', 'Concreto', 'Bloco est'];
-  aberturaPortas: string[] = ['Lateral D.', 'Lateral esq.', 'Central'];
+  paredes: string[] = ['Concreto', 'Tijolo', 'Bloco est.'];
   qdComandos: string[] = ['Porta pav.', 'Alçapão', 'Outro'];
-  medidas: string[] = ['Acabadas', 'Em Bruto'];
+  ligacaoQuadros: string[] = ['Neomot', 'Cliente'];
   casaDeMaquinas: string[] = ['Possui', 'Não possui'];
+
+  firstFormGroup: FormGroup = this._formBuilder.group({ firstCtrl: [''] });
+  secondFormGroup: FormGroup = this._formBuilder.group({ secondCtrl: [''] });
+  thirdFormGroup: FormGroup = this._formBuilder.group({ thirdCtrl: [''] });
+
+  dynamicStepFormGroups: FormGroup[] = [];
+
+  ngOnInit() {
+    this.updateSteps();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['numeroDePavimentos']) {
+      this.updateSteps();
+    }
+  }
+
+  public updateSteps(): void {
+    this.dynamicStepFormGroups = [];
+    console.log()
+
+    for (let i = 0; i < this.secondFormGroup.controls['secondCtrl'].value; i++) {
+      const stepFormGroup = this._formBuilder.group({
+
+        // Define form controls for each step as needed
+        // Example: stepControl: [''],
+      });
+      this.dynamicStepFormGroups.push(stepFormGroup);
+    }
+  }
+  public validateIfFirstStepIsValid(): boolean {
+
+    return true;
+  }
+  public verifyIfHasHouseOfMachines():boolean{
+    return this.casaDeMaquina == 'Possui' ? true : false;
+  }
 }

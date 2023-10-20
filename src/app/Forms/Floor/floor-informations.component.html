@@ -1,0 +1,111 @@
+<div class="component-header">
+  <h4 class="floor-title">Informações de Pavimento</h4>
+  <button mat-icon-button
+          (click)="toggleVisibilityIcon()"
+          color="primary">
+    <mat-icon *ngIf="sVGIsVisible">visibility</mat-icon>
+    <mat-icon *ngIf="!sVGIsVisible">visibility_off</mat-icon>
+  </button>
+</div>
+
+<div class="svg-icons"
+     *ngIf="sVGIsVisible">
+  <img class="svg-img"
+       src="../assets/svg/prumomedidas_medium_size.svg">
+</div>
+<div class="column-form">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nome do Andar</mat-label>
+    <input matInput
+           placeholder="Ex: Térreo">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+
+    <mat-label>Largura (A)</mat-label>
+    <div class="mat-form">
+      <input matInput
+             placeholder="Ex:1200 mm">
+      <div class="text-color">
+        mm
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Largura (B) </mat-label>
+    <div class="mat-form">
+      <input matInput
+             placeholder="Ex:880 mm">
+      <div class="text-color">
+        mm
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Profundidade (C)</mat-label>
+    <div class="mat-form">
+      <input matInput
+             placeholder="Ex:1700 mm">
+      <div class="text-color">
+        mm
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Profundidade (D)</mat-label>
+    <div class="mat-form">
+      <input matInput
+             placeholder="Ex:250 mm">
+      <div class="text-color">
+        mm </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Golas (E)</mat-label>
+    <div class="mat-form">
+      <input matInput
+             placeholder="Ex:450 mm">
+      <div class="text-color">
+        mm
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Golas (F)</mat-label>
+    <div class="mat-form">
+      <input matInput
+             placeholder="Ex:000 mm">
+      <div class="text-color">
+        mm
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Vão de porta</mat-label>
+    <div class="mat-form">
+      <input matInput
+             placeholder="Ex:2300 mm">
+      <div class="text-color">
+        mm
+      </div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Pé Direito (Com Laje)</mat-label>
+    <div class="mat-form">
+      <input matInput
+             placeholder="Ex:2800 mm">
+      <div class="text-color">
+        mm
+      </div>
+    </div>
+  </mat-form-field>
+</div>

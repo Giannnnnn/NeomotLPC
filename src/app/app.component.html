@@ -2,26 +2,14 @@
 <div class="body">
 
   <mat-vertical-stepper [linear]="false"
-                        #stepper
-                        animationDuration="2000">
+                        #stepper>
+
     <mat-step [stepControl]="firstFormGroup">
-
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Informações gerais</ng-template>
-        <div class="row-object">
-          <label>Quantidade de pavimentos:</label>
-          <mat-form-field>
-            <input matInput
-                   placeholder="ex: 12"
-                   formControlName="firstCtrl"
-                   required>
-          </mat-form-field>
-        </div>
-      </form>
-
+      <ng-template matStepLabel>Informações gerais</ng-template>
       <div class="radio-buttons">
         <div class="row-object">
-          <label id="example-radio-group-label">Golas E e F</label>
+          <label class="form-label"
+                 id="example-radio-group-label">Golas E e F</label>
           <mat-radio-group aria-labelledby="example-radio-group-label"
                            class="example-radio-group"
                            [(ngModel)]="gola">
@@ -34,20 +22,22 @@
         </div>
 
         <div class="row-object">
-          <label id="example-radio-group-label">Abertura porta</label>
+          <label class="form-label"
+                 id="example-radio-group-label">Paredes</label>
           <mat-radio-group aria-labelledby="example-radio-group-label"
                            class="example-radio-group"
-                           [(ngModel)]="aberturaPorta">
+                           [(ngModel)]="parede">
             <mat-radio-button class="example-radio-button"
-                              *ngFor="let aberturaPorta of aberturaPortas"
-                              [value]="aberturaPorta">
-              {{aberturaPorta}}
+                              *ngFor="let parede of paredes"
+                              [value]="parede">
+              {{parede}}
             </mat-radio-button>
           </mat-radio-group>
         </div>
 
         <div class="row-object">
-          <label id="example-radio-group-label">Medidas</label>
+          <label class="form-label"
+                 id="example-radio-group-label">Quadro de Comando</label>
           <mat-radio-group aria-labelledby="example-radio-group-label"
                            class="example-radio-group"
                            [(ngModel)]="qdComando">
@@ -60,19 +50,22 @@
         </div>
 
         <div class="row-object">
-          <label id="example-radio-group-label">QD de Comando</label>
+          <label class="form-label"
+                 id="example-radio-group-label">Ligação Quadros</label>
           <mat-radio-group aria-labelledby="example-radio-group-label"
                            class="example-radio-group"
-                           [(ngModel)]="medida">
+                           [(ngModel)]="ligacaoQuadro">
             <mat-radio-button class="example-radio-button"
-                              *ngFor="let medida of medidas"
-                              [value]="medida">
-              {{medida}}
+                              *ngFor="let ligacaoQuadro of ligacaoQuadros"
+                              [value]="ligacaoQuadro">
+              {{ligacaoQuadro}}
             </mat-radio-button>
           </mat-radio-group>
         </div>
+
         <div class="row-object">
-          <label id="example-radio-group-label">Casa de máquinas</label>
+          <label class="form-label"
+                 id="example-radio-group-label">Casa de máquinas</label>
           <mat-radio-group aria-labelledby="example-radio-group-label"
                            class="example-radio-group"
                            [(ngModel)]="casaDeMaquina">
@@ -83,55 +76,97 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
+
       </div>
 
       <div>
         <button mat-button
+                (click)="updateSteps()"
+                [disabled]="!validateIfFirstStepIsValid()"
                 matStepperNext>Next</button>
       </div>
 
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Poço</ng-template>
+        <mat-form-field>
+          <label class="form-label"
+                 id="example-radio-group-label">Profundidade do Poço</label>
+          <div class="mat-form">
+            <input matInput
+                   placeholder="ex: 12"
+                   formControlName="firstCtrl"
+                   [(ngModel)]="profundidadePoco"
+                   required>
+            <div class="text-color">
+              mm
+            </div>
+          </div>
+        </mat-form-field>
+        <div>
+          <button mat-button
+                  matStepperPrevious>Back</button>
+          <button mat-button
+                  (click)="updateSteps()"
+                  matStepperNext>Next</button>
+        </div>
+      </form>
     </mat-step>
 
     <mat-step [stepControl]="secondFormGroup">
 
       <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Pavimentos</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
+        <ng-template matStepLabel>Quantidade de Pavimentos</ng-template>
+        <mat-form-field>
+          <input matInput
+                 [value]="numeroDePavimentos"
+                 (onchange)="updateSteps()"
+                 placeholder="ex: 12"
+                 formControlName="secondCtrl"
+                 required>
+        </mat-form-field>
+        <div>
+          <button mat-button
+                  matStepperPrevious>Back</button>
+          <button mat-button
+                  (click)="updateSteps()"
+                  matStepperNext>Next</button>
+        </div>
+      </form>
     </mat-step>
 
-    <!-- <mat-step [stepControl]="thirdFormGroup">
-
-      <form [formGroup]="thirdFormGroup">
-      <ng-template matStepLabel>Pavimentos</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-    </mat-step> -->
+    <ng-container *ngFor="let stepFormGroup of dynamicStepFormGroups; let i = index">
+      <mat-step [stepControl]="stepFormGroup">
+        <form [formGroup]="stepFormGroup">
+          <ng-template matStepLabel>Pavimento {{i}}</ng-template>
+          <floor-informations></floor-informations>
+        </form>
+        <div>
+          <button mat-button
+                  *ngIf="i > 0"
+                  (click)="stepper.previous()">Back</button>
+          <button mat-button
+                  (click)="stepper.next()">Next</button>
+        </div>
+      </mat-step>
+    </ng-container>
 
     <mat-step>
+      <technical-draw-component [poco]="1000" [percurso]="2000" [ultimaAltura]="3000" [alturaCMaquina]="400" [withHouseOfMachines]="verifyIfHasHouseOfMachines()" ></technical-draw-component>
+
       <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+
       <div>
         <button mat-button
-                matStepperPrevious>Back</button>
-        <button mat-button
-                (click)="stepper.reset()">Reset</button>
+                *ngIf="dynamicStepFormGroups.length > 0"
+                (click)="stepper.previous()">Back</button>
+        <button mat-button >Ok</button>
       </div>
+      
     </mat-step>
 
   </mat-vertical-stepper>
-
 
 </div>
